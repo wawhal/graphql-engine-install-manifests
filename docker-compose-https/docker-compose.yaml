@@ -22,6 +22,7 @@ services:
     - serve
   caddy:
     image: abiosoft/caddy:0.11.0
+    network_mode: "host"
     depends_on:
     - "graphql-engine"
     restart: always
