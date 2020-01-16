@@ -5,14 +5,18 @@ services:
     restart: always
     volumes:
     - db_data:/var/lib/postgresql/data
+    network_mode: "host"
+    environment:
+      POSTGRES_PASSWORD: "postgresspassword"
   graphql-engine:
-    image: hasura/graphql-engine:v1.0.0-rc.1
+    image: hasura/graphql-engine:pull3252-6446766a
+    network_mode: "host"
     depends_on:
     - "postgres"
     restart: always
     environment:
       # database url to connect
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@postgres:5432/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgresspassword@localhost:5432/postgres
       # enable the console served by server
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set "false" to disable console
       ## uncomment next line to set an admin secret key
